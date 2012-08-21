@@ -24,9 +24,12 @@ public class Menu extends ListActivity{
     public void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
         String item = (String) getListAdapter().getItem(position);
-        if(item.equals("MyActivity")){
-            Intent openActivity = new Intent(Menu.this, MyActivity.class);
+        try{
+            Class itemClass = Class.forName("com.example." + item);
+            Intent openActivity = new Intent(Menu.this, itemClass);
             startActivity(openActivity);
+        } catch(ClassNotFoundException e){
+            e.printStackTrace();
         }
     }
 
